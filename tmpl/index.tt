@@ -7,7 +7,13 @@
 
 [% IF q %]
     [% IF first_release %]
-    <span class="module">[% q %]</span> was first released with perl <span class="version">[% first_release %]</span>
+    <span class="module">
+        <a href="/m/[% q %]">[% q %]</a>
+    </span>
+    was first released with perl
+    <span class="version">
+        <a href="/v/[% first_release %]">[% first_release %]</a>
+    </span>
     [% ELSE %]
     <span class="module">[% q %]</span> was not in CORE (or so I think)
     [% END %]

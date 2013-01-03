@@ -1,9 +1,10 @@
 [% INCLUDE 'include/header.tt' %]
 
-<ul id="version-menu-body">
-    [% FOR version IN versions %]
-        <li><a href="/v/[% version %]">[% version %]</a></li>
+
+<table>
+    [% FOR row IN data %]
+        <tr><td><a href="/v/[% row.perl %]">[% row.perl %]</a></td><td>[% row.date %]</td></tr>
     [% END %]
-</ul>
+</table>
 
 [% INCLUDE 'include/footer.tt' %]

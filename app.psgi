@@ -48,8 +48,11 @@ get '/api/v1/module/{module}.{format:json}' => sub {
 
 get '/version-list' => sub {
     my ($c) = @_;
-    $c->render( 'version-list.tt',
-        { versions => [ reverse sort keys %Module::CoreList::version ] } );
+    my @data = map {+{
+        perl => $_,
+        date => $Module::CoreList::released{$_}
+    }} grep {!/000$/} reverse sort keys %Module::CoreList::released;
+    $c->render( 'version-list.tt', {data => \@data} );
 };
 
 get '/v/{version}' => sub {
@@ -65,7 +68,7 @@ get '/m/:module' => sub {
 
     my $module = $args->{module} // die;
     my @data;
-    for my $v (reverse sort keys %Module::CoreList::version) {
+    for my $v (grep {!/000$/} reverse sort keys %Module::CoreList::version) {
         my $modver = $Module::CoreList::version{$v}->{$module};
         next unless $modver;
         push @data, {perl => $v, module => $modver};
