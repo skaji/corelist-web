@@ -114,6 +114,6 @@ __END__
 
   $ crontab -e
   PATH=/set/appropriate/path
-  0 0 * * * cd /your/app/path; carton exec -- perl update_module_corelist.pl
+  0 0 * * * perl -I/path/to/corelist-web/local/lib/perl5 /path/to/corelist-web/update_module_corelist.pl
 
 =cut

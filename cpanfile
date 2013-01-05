@@ -3,7 +3,7 @@
 requires 'Plack';
 requires 'Amon2::Lite';
 requires 'JSON';
-requires 'Module::CoreList' => '2.79';
+requires 'Module::CoreList' => '2.70';
 requires 'Starman';
 
 # for update_module_corelis.pl
