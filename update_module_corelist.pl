@@ -71,6 +71,7 @@ sub email {
     my $to      = `git config user.email`      or die;
     my $from    = `whoami` . '@' .  `hostname` or die;
     my $subject = 'output of `carton install`';
+    s/\r?\n//g for $to, $from;
 
     my $email = Email::Simple->create(
         header => [
