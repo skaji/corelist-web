@@ -11,6 +11,7 @@ use File::chdir;
 use FindBin qw($Bin);
 use MetaCPAN::API;
 use Perl6::Slurp qw(slurp);
+use POSIX ();
 
 main() unless caller();
 
@@ -32,7 +33,7 @@ sub main {
 
     {
         local $CWD = $Bin;
-        my $done;
+        my $ok;
         my $merged = capture_merged {
             $ok = !system 'carton', 'install', '--no-color';
         };
@@ -67,11 +68,12 @@ sub current_version_of {
 sub email {
     my ($body, $ok) = @_;
 
-    my $to      = `git config user.email`     or die;
-    my $from    = `whoami` . '@' . `hostname` or die;
+    my $to   = `git config user.email`     or die;
+    my $from = `whoami` . '@' . `hostname` or die;
     s/\r?\n//g for $to, $from;
 
-    my $subject = ($ok ? 'SUCCESS' : 'FAILED') . ': carton install';
+    my $now     = POSIX::strftime("%Y-%m-%d %H:%M:%S %Z", localtime);
+    my $subject = ($ok ? 'SUCCESS' : 'FAILED') . ": carton install ($now)";
 
     my $email = Email::Simple->create(
         header => [
