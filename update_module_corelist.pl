@@ -2,15 +2,15 @@
 use strict;
 use warnings;
 use utf8;
-use MetaCPAN::API;
-use Perl6::Slurp qw(slurp);
-use FindBin qw($Bin);
-use File::Spec;
-use File::chdir;
 use Capture::Tiny qw(capture_merged);
 use Email::Sender::Simple qw(sendmail);
-use Email::Simple;
 use Email::Simple::Creator;
+use Email::Simple;
+use File::Spec;
+use File::chdir;
+use FindBin qw($Bin);
+use MetaCPAN::API;
+use Perl6::Slurp qw(slurp);
 
 main() unless caller();
 
@@ -45,8 +45,6 @@ sub main {
 }
 
 
-
-
 sub latest_version_of {
     my $mod = shift;
     my $cpan = MetaCPAN::API->new;
@@ -67,9 +65,9 @@ sub current_version_of {
 }
 
 sub email {
-    my $body    = shift                        or die;
-    my $to      = `git config user.email`      or die;
-    my $from    = `whoami` . '@' .  `hostname` or die;
+    my $body    = shift                       or die;
+    my $to      = `git config user.email`     or die;
+    my $from    = `whoami` . '@' . `hostname` or die;
     my $subject = 'output of `carton install`';
     s/\r?\n//g for $to, $from;
 
@@ -110,3 +108,12 @@ sub update_cpanfile {
     return;
 }
 
+__END__
+
+=head1 SYNOPSIS
+
+  $ crontab -e
+  PATH=/set/appropriate/path
+  0 0 * * * cd /your/app/path; carton exec -- perl update_module_corelist.pl
+
+=cut
