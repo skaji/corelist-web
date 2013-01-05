@@ -34,10 +34,10 @@ sub main {
         local $CWD = $Bin;
         my $done;
         my $merged = capture_merged {
-            $done = !system 'carton', 'install', '--no-color';
+            $ok = !system 'carton', 'install', '--no-color';
         };
-        email($merged);
-        if ($done) {
+        email($merged, $ok);
+        if ($ok) {
             system 'sh', 'restart.sh';
         }
     }
@@ -65,11 +65,13 @@ sub current_version_of {
 }
 
 sub email {
-    my $body    = shift                       or die;
+    my ($body, $ok) = @_;
+
     my $to      = `git config user.email`     or die;
     my $from    = `whoami` . '@' . `hostname` or die;
-    my $subject = 'output of `carton install`';
     s/\r?\n//g for $to, $from;
+
+    my $subject = ($ok ? 'SUCCESS' : 'FAILED') . ': carton install';
 
     my $email = Email::Simple->create(
         header => [
