@@ -1,11 +1,24 @@
 [% INCLUDE 'include/header.tt' %]
 
 
-<h2>[% module %]</h2>
+<form method="get" action="/">
+    <input type="text" name="module" value="[% module %]" />
+    <input type="submit" value="when?" />
+</form>
 
+[% IF module %]
+    [% IF data.size()  %]
+        <h2>[% module %]</h2>
+    [% ELSE %]
+        <span class="module">[% module %]</span> was not in CORE (or so I think)
+    [% END %]
+[% END %]
 <table>
     [% FOR row IN data %]
-        <tr><td><a href="/v/[% row.perl %]">[% row.perl %]</a></td><td>[% row.module %]</td></tr>
+        <tr>
+            <td><a href="/v/[% row.perl %]">[% row.perl %]</a></td>
+            <td>[% row.module %]</td>
+        </tr>
     [% END %]
 </table>
 

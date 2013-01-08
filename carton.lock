@@ -4729,65 +4729,6 @@
          "target" : "MetaCPAN::API",
          "version" : "0.43"
       },
-      "Module::CoreList" : {
-         "dist" : "Module-CoreList-2.79",
-         "mymeta" : {
-            "abstract" : "what modules shipped with versions of perl",
-            "author" : [
-               "unknown"
-            ],
-            "dynamic_config" : 0,
-            "generated_by" : "ExtUtils::MakeMaker version 6.62, CPAN::Meta::Converter version 2.120921",
-            "license" : [
-               "perl_5"
-            ],
-            "meta-spec" : {
-               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
-               "version" : "2"
-            },
-            "name" : "Module-CoreList",
-            "no_index" : {
-               "directory" : [
-                  "t",
-                  "inc"
-               ]
-            },
-            "prereqs" : {
-               "build" : {
-                  "requires" : {
-                     "ExtUtils::MakeMaker" : "0"
-                  }
-               },
-               "configure" : {
-                  "requires" : {
-                     "ExtUtils::MakeMaker" : "0"
-                  }
-               },
-               "runtime" : {
-                  "requires" : {
-                     "List::Util" : "0",
-                     "Test::More" : "0"
-                  }
-               }
-            },
-            "release_status" : "stable",
-            "version" : "2.79"
-         },
-         "name" : "Module::CoreList",
-         "pathname" : "B/BI/BINGOS/Module-CoreList-2.79.tar.gz",
-         "provides" : {
-            "Module::CoreList" : {
-               "file" : "Module/CoreList.pm",
-               "version" : "2.79"
-            },
-            "Module::CoreList::TieHashDelta" : {
-               "file" : "Module/CoreList/TieHashDelta.pm",
-               "version" : "2.79"
-            }
-         },
-         "target" : "Module::CoreList",
-         "version" : "2.79"
-      },
       "Module::Implementation" : {
          "dist" : "Module-Implementation-0.06",
          "mymeta" : {
@@ -9999,7 +9940,7 @@
                "file" : "URI/urn/oid.pm"
             }
          },
-         "target" : "URI",
+         "target" : "URI::Escape",
          "version" : "1.60"
       },
       "WWW::RobotRules" : {

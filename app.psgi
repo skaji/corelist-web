@@ -8,42 +8,19 @@ use Module::CoreList;
 
 our $VERSION = '0.02';
 
-__PACKAGE__->load_plugin('Web::JSON');
 
 get '/' => sub {
     my ($c) = @_;
 
-    my $q = $c->req->param('q') // 'Module::CoreList';
-    $c->render( 'index.tt',
-        { q => $q, first_release => Module::CoreList->first_release($q) } );
-};
-
-get '/api/v1/perl/list.{format:json}' => sub {
-    my ($c, $p) = @_;
-    warn $c;
-    return $c->render_json([ reverse sort keys %Module::CoreList::version ]);
-};
-
-get '/api/v1/perl/{version}.{format:json}' => sub {
-    my ($c, $p) = @_;
-    return $c->render_json($Module::CoreList::version{$p->{version}});
-};
-
-get '/api/v1/module/{module}.{format:json}' => sub {
-    my ($c, $p) = @_;
-
+    my $module = $c->req->param('module') // 'Module::CoreList';
     my @data;
-    for my $v (reverse sort keys %Module::CoreList::version) {
-        my $modver = $Module::CoreList::version{$v}->{$p->{module}};
+    for my $v (grep {!/000$/} reverse sort keys %Module::CoreList::version) {
+        my $modver = $Module::CoreList::version{$v}->{$module};
         next unless $modver;
         push @data, {perl => $v, module => $modver};
     }
-    return $c->render_json(
-        {
-            releases      => \@data,
-            first_release => Module::CoreList->first_release( $p->{dist} )
-        }
-    );
+
+    $c->render('module.tt', {data => \@data, module => $module});
 };
 
 get '/version-list' => sub {
@@ -63,19 +40,6 @@ get '/v/{version}' => sub {
     $c->render('version.tt', {version => $version, modules => \%modules});
 };
 
-get '/m/:module' => sub {
-    my ($c, $args) = @_;
-
-    my $module = $args->{module} // die;
-    my @data;
-    for my $v (grep {!/000$/} reverse sort keys %Module::CoreList::version) {
-        my $modver = $Module::CoreList::version{$v}->{$module};
-        next unless $modver;
-        push @data, {perl => $v, module => $modver};
-    }
-
-    $c->render('module.tt', {data => \@data, module => $module});
-};
 
 __PACKAGE__->to_app();
 
