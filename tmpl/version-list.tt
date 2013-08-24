@@ -3,7 +3,7 @@
 
 <table>
     [% FOR row IN data %]
-        <tr><td><a href="/v/[% row.perl %]">[% row.perl %]</a></td><td>[% row.date %]</td></tr>
+        <tr><td><a href="[% uri_for('/v') %]/[% row.perl %]">[% row.perl %]</a></td><td>[% row.date %]</td></tr>
     [% END %]
 </table>
 

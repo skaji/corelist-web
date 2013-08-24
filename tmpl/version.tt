@@ -4,7 +4,7 @@
 <table>
     [% FOR k IN modules.keys().sort() %]
         <tr>
-            <td align="left"><a href="/?module=[% k %]">[% k %]</a></td>
+            <td align="left"><a href="[% uri_for('/') %]?module=[% k %]">[% k %]</a></td>
             <td>[% modules.$k %]</td>
         </tr>
     [% END %]

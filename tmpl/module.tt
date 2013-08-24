@@ -1,7 +1,7 @@
 [% INCLUDE 'include/header.tt' %]
 
 
-<form method="get" action="/">
+<form method="get" action="[% uri_for('/') %]">
     <input type="text" name="module" value="[% module %]" />
     <input type="submit" value="when?" />
 </form>
@@ -16,7 +16,7 @@
 <table>
     [% FOR row IN data %]
         <tr>
-            <td><a href="/v/[% row.perl %]">[% row.perl %]</a></td>
+            <td><a href="[% uri_for('/v') %]/[% row.perl %]">[% row.perl %]</a></td>
             <td>[% row.module %]</td>
         </tr>
     [% END %]

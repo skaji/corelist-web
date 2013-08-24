@@ -70,12 +70,12 @@
 <body>
     <div id="container">
         <header>
-            <h1><a href="/">perl5 module corelist for web</a></h1>
+            <h1><a href="[% uri_for('/') %]">perl5 module corelist for web</a></h1>
         </header>
         <nav>
             <ul>
-                <li><a href="/">top</a></li>
-                <li><a href="/version-list">version</a></li>
+                <li><a href="[% uri_for('/') %]">top</a></li>
+                <li><a href="[% uri_for('/version-list') %]">version</a></li>
             </ul>
         </nav>
         <div class="clear-both"></div>

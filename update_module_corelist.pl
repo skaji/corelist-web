@@ -35,11 +35,11 @@ sub main {
         local $CWD = $Bin;
         my $ok;
         my $merged = capture_merged {
-            $ok = !system 'carton', 'install', '--no-color';
+            $ok = !system 'carton', 'install';
         };
         email($merged, $ok);
         if ($ok) {
-            system 'sh', 'restart.sh';
+            system 'sh', 'run.sh';
         }
     }
     return;
