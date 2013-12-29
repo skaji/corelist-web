@@ -1,10 +1,10 @@
-        </section>
 
-        <div class="clear-both"></div>
         <footer>
-            web interface for <a href="http://search.cpan.org/dist/Module-CoreList/">Module::CoreList</a> 2.97,
+            Web interface for <a href="http://search.cpan.org/dist/Module-CoreList/">Module::CoreList</a> [% module_corelist_version() %],
             original: https://github.com/tokuhirom/corelist-web
         </footer>
     </div>
+<script src="[% uri_for('/static/js/jquery-2.0.3.min.js') %]"></script>
+<script src="[% uri_for('/static/js/bootstrap.min.js') %]"></script>
 </body>
 </html>

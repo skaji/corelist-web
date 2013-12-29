@@ -18,7 +18,6 @@ main() unless caller();
 sub main {
     my $module   = 'Module::CoreList';
     my $cpanfile = File::Spec->catfile($Bin, 'cpanfile');
-    my $tt_file  = File::Spec->catfile($Bin, qw(tmpl include footer.tt));
 
     my $current_version = current_version_of(
         module   => $module,
@@ -28,7 +27,6 @@ sub main {
 
     return if $current_version >= $latest_version;
 
-    update_tt_file( tt_file  => $tt_file,  version => $latest_version);
     update_cpanfile(cpanfile => $cpanfile, version => $latest_version);
 
     {
@@ -86,18 +84,6 @@ sub email {
     sendmail($email);
 }
 
-sub update_tt_file {
-    my %arg = ref $_[0] ? %{$_[0]} : @_;
-    my $tt_file = delete $arg{tt_file} or die;
-    my $version = delete $arg{version} or die;
-    my @content = slurp $tt_file;
-    open my $out, '>', $tt_file or die "$!";
-    for (@content) {
-        s/(web interface.*?)([\d.]{2,})/$1$version/;
-        print {$out} $_;
-    }
-    return;
-}
 
 sub update_cpanfile {
     my %arg = ref $_[0] ? %{$_[0]} : @_;

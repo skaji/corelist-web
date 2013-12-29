@@ -1,7 +1,7 @@
 [% INCLUDE 'include/header.tt' %]
 
 
-<table>
+<table class="table table-striped table-condensed table-hover">
     [% FOR row IN data %]
         <tr><td><a href="[% uri_for('/v') %]/[% row.perl %]">[% row.perl %]</a></td><td>[% row.date %]</td></tr>
     [% END %]

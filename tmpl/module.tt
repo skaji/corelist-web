@@ -1,19 +1,14 @@
 [% INCLUDE 'include/header.tt' %]
 
 
-<form method="get" action="[% uri_for('/') %]">
-    <input type="text" name="module" value="[% module %]" />
-    <input type="submit" value="when?" />
-</form>
-
 [% IF module %]
     [% IF data.size()  %]
-        <h2>[% module %]</h2>
+        <h2><a href="[% cpan_url %]">[% module %]</a></h2>
     [% ELSE %]
         <span class="module">[% module %]</span> was not in CORE (or so I think)
     [% END %]
 [% END %]
-<table>
+<table class="table table-striped table-condensed table-hover">
     [% FOR row IN data %]
         <tr>
             <td><a href="[% uri_for('/v') %]/[% row.perl %]">[% row.perl %]</a></td>
