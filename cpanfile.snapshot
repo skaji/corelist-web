@@ -14,7 +14,6 @@ DISTRIBUTIONS
       Amon2::Plugin::Web::NoCache undef
       Amon2::Plugin::Web::PlackSession undef
       Amon2::Plugin::Web::Streaming undef
-      Amon2::Plugin::Web::Streaming::Writer undef
       Amon2::Plugin::Web::WebSocket undef
       Amon2::Setup::Asset::Blueprint undef
       Amon2::Setup::Asset::Bootstrap undef
@@ -71,6 +70,8 @@ DISTRIBUTIONS
     pathname: S/SA/SARTAK/Any-Moose-0.21.tar.gz
     provides:
       Any::Moose 0.21
+      AnyMooseTest undef
+      inc::MakeMaker undef
     requirements:
       ExtUtils::MakeMaker 6.30
       Mouse 0.40
@@ -131,7 +132,16 @@ DISTRIBUTIONS
     pathname: D/DR/DROLSKY/Class-Load-0.20.tar.gz
     provides:
       Class::Load 0.20
+      Class::Load::Error::DieAfterBeginIsa undef
+      Class::Load::Error::DieAfterIsa undef
+      Class::Load::Error::SyntaxErrorAfterIsa undef
+      Class::Load::OK undef
       Class::Load::PP 0.20
+      Class::Load::Stash undef
+      Class::Load::Stash::Sub undef
+      Class::Load::SyntaxError undef
+      Class::Load::VersionCheck 42
+      Class::Load::VersionCheck2 42
     requirements:
       Carp 0
       Data::OptList 0
@@ -166,8 +176,8 @@ DISTRIBUTIONS
       Data::Dump::FilterContext undef
       Data::Dump::Filtered undef
       Data::Dump::Trace 0.02
-      Data::Dump::Trace::Call undef
-      Data::Dump::Trace::Wrapper undef
+      Data::Dump::Trace::Call 0.02
+      Data::Dump::Trace::Wrapper 0.02
     requirements:
       ExtUtils::MakeMaker 0
       Symbol 0
@@ -262,7 +272,26 @@ DISTRIBUTIONS
   Dist-CheckConflicts-0.02
     pathname: D/DO/DOY/Dist-CheckConflicts-0.02.tar.gz
     provides:
+      Bar 0.02
+      Bar::Conflicts undef
+      Bar::Conflicts2 undef
+      Bar::Conflicts3 undef
+      Bar::Conflicts::Bad undef
+      Bar::Conflicts::Bad2 undef
+      Bar::Conflicts::Bad3 undef
+      Bar::Conflicts::Good undef
+      Bar::Conflicts::Good2 undef
+      Bar::Conflicts::Good3 undef
+      Bar::Three 0.02
+      Bar::Two 0.02
       Dist::CheckConflicts 0.02
+      Foo 0.02
+      Foo::Conflicts undef
+      Foo::Conflicts2 undef
+      Foo::Conflicts::Bad undef
+      Foo::Conflicts::Good undef
+      Foo::Three 0.02
+      Foo::Two 0.02
     requirements:
       ExtUtils::MakeMaker 6.31
       List::MoreUtils 0.12
@@ -301,6 +330,61 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       Test::More 0.47
       Time::Local 0.000
+  Email-MIME-1.925
+    pathname: R/RJ/RJBS/Email-MIME-1.925.tar.gz
+    provides:
+      Email::MIME 1.925
+      Email::MIME::Creator 1.925
+      Email::MIME::Encode 1.925
+      Email::MIME::Header 1.925
+      Email::MIME::Modifier 1.925
+    requirements:
+      Carp 0
+      Email::Address 0
+      Email::MIME::ContentType 1.016
+      Email::MIME::Encodings 1.314
+      Email::MessageID 0
+      Email::Simple 2.102
+      Email::Simple::Creator 0
+      Email::Simple::Header 0
+      Encode 1.9801
+      ExtUtils::MakeMaker 6.30
+      MIME::Base64 0
+      MIME::Types 1.13
+      Scalar::Util 0
+      parent 0
+      strict 0
+      warnings 0
+  Email-MIME-ContentType-1.017
+    pathname: R/RJ/RJBS/Email-MIME-ContentType-1.017.tar.gz
+    provides:
+      Email::MIME::ContentType 1.017
+    requirements:
+      Carp 0
+      Exporter 5.57
+      ExtUtils::MakeMaker 6.30
+      strict 0
+      warnings 0
+  Email-MIME-Encodings-1.315
+    pathname: R/RJ/RJBS/Email-MIME-Encodings-1.315.tar.gz
+    provides:
+      Email::MIME::Encodings 1.315
+    requirements:
+      Carp 0
+      ExtUtils::MakeMaker 6.30
+      MIME::Base64 3.05
+      MIME::QuotedPrint 3.05
+      strict 0
+      warnings 0
+  Email-MessageID-1.402
+    pathname: R/RJ/RJBS/Email-MessageID-1.402.tar.gz
+    provides:
+      Email::MessageID 1.402
+    requirements:
+      Email::Address 1.80
+      ExtUtils::MakeMaker 0
+      Sys::Hostname 1.1
+      Test::More 0.47
   Email-Sender-1.300006
     pathname: R/RJ/RJBS/Email-Sender-1.300006.tar.gz
     provides:
@@ -328,6 +412,9 @@ DISTRIBUTIONS
       Email::Sender::Transport::Test 1.300006
       Email::Sender::Transport::Wrapper 1.300006
       Email::Sender::Util 1.300006
+      Test::Email::SMTPRig undef
+      Test::Email::Sender::Transport::FailEvery undef
+      Test::Email::Sender::Util undef
     requirements:
       Capture::Tiny 0.08
       Carp 0
@@ -387,11 +474,11 @@ DISTRIBUTIONS
     pathname: G/GA/GAAS/File-Listing-6.04.tar.gz
     provides:
       File::Listing 6.04
-      File::Listing::apache undef
-      File::Listing::dosftp undef
-      File::Listing::netware undef
-      File::Listing::unix undef
-      File::Listing::vms undef
+      File::Listing::apache 6.04
+      File::Listing::dosftp 6.04
+      File::Listing::netware 6.04
+      File::Listing::unix 6.04
+      File::Listing::vms 6.04
     requirements:
       ExtUtils::MakeMaker 0
       HTTP::Date 6
@@ -407,23 +494,25 @@ DISTRIBUTIONS
       File::Spec 0.80
       Test::More 0.47
       perl 5.005
-  File-chdir-0.1008
-    pathname: D/DA/DAGOLDEN/File-chdir-0.1008.tar.gz
+  File-pushd-1.005
+    pathname: D/DA/DAGOLDEN/File-pushd-1.005.tar.gz
     provides:
-      File::chdir 0.1008
-      File::chdir::ARRAY undef
-      File::chdir::SCALAR undef
+      File::pushd 1.005
     requirements:
       Carp 0
-      Cwd 3.16
+      Cwd 0
       Exporter 0
       ExtUtils::MakeMaker 6.30
+      File::Basename 0
       File::Find 0
-      File::Spec::Functions 3.27
+      File::Path 0
+      File::Spec 0
+      File::Spec::Functions 0
       File::Temp 0
+      List::Util 0
       Test::More 0
+      overload 0
       strict 0
-      vars 0
       warnings 0
   Filesys-Notify-Simple-0.10
     pathname: M/MI/MIYAGAWA/Filesys-Notify-Simple-0.10.tar.gz
@@ -438,14 +527,14 @@ DISTRIBUTIONS
     pathname: G/GA/GAAS/HTML-Form-6.03.tar.gz
     provides:
       HTML::Form 6.03
-      HTML::Form::FileInput undef
-      HTML::Form::IgnoreInput undef
-      HTML::Form::ImageInput undef
-      HTML::Form::Input undef
-      HTML::Form::KeygenInput undef
-      HTML::Form::ListInput undef
-      HTML::Form::SubmitInput undef
-      HTML::Form::TextInput undef
+      HTML::Form::FileInput 6.03
+      HTML::Form::IgnoreInput 6.03
+      HTML::Form::ImageInput 6.03
+      HTML::Form::Input 6.03
+      HTML::Form::KeygenInput 6.03
+      HTML::Form::ListInput 6.03
+      HTML::Form::SubmitInput 6.03
+      HTML::Form::TextInput 6.03
     requirements:
       Encode 2
       ExtUtils::MakeMaker 0
@@ -507,6 +596,7 @@ DISTRIBUTIONS
       HTTP::Body::UrlEncoded 1.17
       HTTP::Body::XForms 1.17
       HTTP::Body::XFormsMultipart 1.17
+      PAML undef
     requirements:
       Carp 0
       Digest::MD5 0
@@ -532,7 +622,7 @@ DISTRIBUTIONS
     pathname: G/GA/GAAS/HTTP-Daemon-6.01.tar.gz
     provides:
       HTTP::Daemon 6.01
-      HTTP::Daemon::ClientConn undef
+      HTTP::Daemon::ClientConn 6.01
     requirements:
       ExtUtils::MakeMaker 0
       HTTP::Date 6
@@ -635,13 +725,10 @@ DISTRIBUTIONS
     pathname: M/MA/MAKAMAKA/JSON-2.53.tar.gz
     provides:
       JSON 2.53
-      JSON::Backend::PP undef
-      JSON::Boolean undef
+      JSON::Backend::PP 2.53
+      JSON::Boolean 2.53
       JSON::PP 2.27200
-      JSON::PP5005 1.10
-      JSON::PP56 1.08
-      JSON::PP::IncrParser 1.01
-      JSON::backportPP::Boolean undef
+      JSON::backportPP::Boolean 2.27200
     requirements:
       ExtUtils::MakeMaker 0
       Test::More 0
@@ -661,6 +748,16 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 6.52
       Test::More 0.82
       perl 5.00503
+  MIME-Types-2.04
+    pathname: M/MA/MARKOV/MIME-Types-2.04.tar.gz
+    provides:
+      MIME::Type 2.04
+      MIME::Types 2.04
+    requirements:
+      ExtUtils::MakeMaker 0
+      File::Basename 0
+      File::Spec 0
+      Test::More 0.47
   MRO-Compat-0.12
     pathname: B/BO/BOBTFISH/MRO-Compat-0.12.tar.gz
     provides:
@@ -695,12 +792,22 @@ DISTRIBUTIONS
       URI::Escape 0
       strict 0
       warnings 0
-  Module-CoreList-2.97
-    pathname: B/BI/BINGOS/Module-CoreList-2.97.tar.gz
+  Module-CPANfile-1.0002
+    pathname: M/MI/MIYAGAWA/Module-CPANfile-1.0002.tar.gz
     provides:
-      Module::CoreList 2.97
-      Module::CoreList::TieHashDelta 2.97
-      Module::CoreList::Utils 2.97
+      Module::CPANfile 1.0002
+      Module::CPANfile::Environment undef
+      Module::CPANfile::Result undef
+    requirements:
+      CPAN::Meta 2.12091
+      CPAN::Meta::Prereqs 2.12091
+      ExtUtils::MakeMaker 6.30
+  Module-CoreList-3.02
+    pathname: B/BI/BINGOS/Module-CoreList-3.02.tar.gz
+    provides:
+      Module::CoreList 3.02
+      Module::CoreList::TieHashDelta 3.02
+      Module::CoreList::Utils 3.02
     requirements:
       ExtUtils::MakeMaker 0
       List::Util 0
@@ -709,6 +816,10 @@ DISTRIBUTIONS
     pathname: D/DR/DROLSKY/Module-Implementation-0.06.tar.gz
     provides:
       Module::Implementation 0.06
+      T::Impl1 undef
+      T::Impl2 undef
+      T::ImplFails1 undef
+      T::ImplFails2 undef
     requirements:
       Carp 0
       ExtUtils::MakeMaker 6.30
@@ -755,6 +866,8 @@ DISTRIBUTIONS
       Moo::HandleMoose::FakeMetaClass undef
       Moo::Object undef
       Moo::Role undef
+      Moo::_Utils undef
+      Moo::_mro undef
       Moo::sification undef
       Sub::Defer undef
       Sub::Quote undef
@@ -804,8 +917,8 @@ DISTRIBUTIONS
       Mouse::Spec 1.05
       Mouse::Tiny 1.05
       Mouse::TypeRegistry undef
-      Mouse::Util 1.05
-      Mouse::Util::MetaRole undef
+      Mouse::Util undef
+      Mouse::Util::MetaRole 1.05
       Mouse::Util::TypeConstraints undef
       Squirrel undef
       Squirrel::Role undef
@@ -859,7 +972,7 @@ DISTRIBUTIONS
       Net::Server::Proto::UNIXDGRAM undef
       Net::Server::SIG 0.03
       Net::Server::Single undef
-      Net::Server::TiedHandle undef
+      Net::Server::TiedHandle 2.007
     requirements:
       ExtUtils::MakeMaker 0
       IO::Socket 0
@@ -883,8 +996,11 @@ DISTRIBUTIONS
   Package-Stash-0.34
     pathname: D/DO/DOY/Package-Stash-0.34.tar.gz
     provides:
+      CompileTime undef
       Package::Stash 0.34
       Package::Stash::PP 0.34
+      inc::DistMeta undef
+      inc::MMPackageStash undef
     requirements:
       B 0
       Carp 0
@@ -907,6 +1023,7 @@ DISTRIBUTIONS
   Package-Stash-XS-0.26
     pathname: D/DO/DOY/Package-Stash-XS-0.26.tar.gz
     provides:
+      CompileTime undef
       Package::Stash::XS 0.26
     requirements:
       B 0
@@ -934,12 +1051,6 @@ DISTRIBUTIONS
       Scalar::Util 1.18
       Test::More 0.42
       perl 5.00503
-  Perl6-Slurp-0.051003
-    pathname: D/DC/DCONWAY/Perl6-Slurp-0.051003.tar.gz
-    provides:
-      Perl6::Slurp 0.051003
-    requirements:
-      ExtUtils::MakeMaker 0
   Plack-1.0018
     pathname: M/MI/MIYAGAWA/Plack-1.0018.tar.gz
     provides:
@@ -1138,6 +1249,13 @@ DISTRIBUTIONS
     provides:
       Sub::Exporter 0.985
       Sub::Exporter::Util 0.985
+      Test::SubExporter::DashSetup undef
+      Test::SubExporter::Faux undef
+      Test::SubExporter::GroupGen undef
+      Test::SubExporter::GroupGenSubclass undef
+      Test::SubExporter::ObjGen undef
+      Test::SubExporter::ObjGen::Obj undef
+      Test::SubExporter::s_e undef
     requirements:
       Carp 0
       Data::OptList 0.100
@@ -1324,6 +1442,8 @@ DISTRIBUTIONS
   Test-Tester-0.108
     pathname: F/FD/FDALY/Test-Tester-0.108.tar.gz
     provides:
+      MyTest undef
+      SmallTest undef
       Test::Tester 0.108
       Test::Tester::Capture undef
       Test::Tester::CaptureRunner undef
@@ -1369,8 +1489,8 @@ DISTRIBUTIONS
     pathname: C/CH/CHORNY/Test-Warn-0.24.tar.gz
     provides:
       Test::Warn 0.24
-      Test::Warn::Categorization undef
-      Test::Warn::DAG_Node_Tree undef
+      Test::Warn::Categorization 0.24
+      Test::Warn::DAG_Node_Tree 0.24
     requirements:
       Carp 1.22
       ExtUtils::MakeMaker 0
@@ -1388,7 +1508,7 @@ DISTRIBUTIONS
       Text::Xslate::Bridge undef
       Text::Xslate::Bridge::Star undef
       Text::Xslate::Compiler undef
-      Text::Xslate::Engine undef
+      Text::Xslate::Engine 2.0000
       Text::Xslate::HashWithDefault undef
       Text::Xslate::PP 2.0000
       Text::Xslate::PP::Const undef
@@ -1477,6 +1597,16 @@ DISTRIBUTIONS
       URI::Split undef
       URI::URL 5.04
       URI::WithBase 2.20
+      URI::_foreign undef
+      URI::_generic undef
+      URI::_idna undef
+      URI::_ldap 1.12
+      URI::_login undef
+      URI::_punycode 0.04
+      URI::_query undef
+      URI::_segment undef
+      URI::_server undef
+      URI::_userpass undef
       URI::data undef
       URI::file 4.21
       URI::file::Base undef
@@ -1553,7 +1683,7 @@ DISTRIBUTIONS
     provides:
       WWW::RobotRules 6.02
       WWW::RobotRules::AnyDBM_File 6.00
-      WWW::RobotRules::InCore undef
+      WWW::RobotRules::InCore 6.02
     requirements:
       AnyDBM_File 0
       ExtUtils::MakeMaker 0
