@@ -41,7 +41,7 @@ sub main {
         })
     );
 
-    Module::CPANfile->from_prereqs($new_prereqs)->save($cpanfile);
+    Module::CPANfile->from_prereqs($new_prereqs->as_string_hash)->save($cpanfile);
     debug "updated cpanfile.";
 
     {
@@ -77,8 +77,8 @@ sub email {
     my ($body, $ok) = @_;
 
     my $to   = `git config user.email`     or die;
-    my $from = sprintf '%s@%s', getpwuid($>), hostname;
-    s/\r?\n//g for $to;
+    my $from = sprintf '%s@%s', scalar(getpwuid $>), hostname;
+    $to =~ s/\r?\n//;
     debug "email to: $to";
     debug "email from: $from";
 
