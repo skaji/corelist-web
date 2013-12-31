@@ -13,6 +13,8 @@ use MetaCPAN::API;
 use Module::CPANfile;
 use POSIX qw(strftime);
 use Sys::Hostname qw(hostname);
+use constant DEBUG => $ENV{UPDATE_DEBUG};
+sub debug { DEBUG and warn "[DEBUG] @_\n" }
 
 main() unless caller();
 
@@ -25,7 +27,13 @@ sub main {
         // die "ERROR missing verison of $module";
     my $latest_version   = latest_version_of($module);
 
-    return if $current_version >= $latest_version;
+    debug "current version of $module: $current_version";
+    debug "latest version of $module: $latest_version";
+
+    if ($current_version >= $latest_version) {
+        debug "nothing to do.";
+        return;
+    }
 
     my $new_prereqs = $original_prereqs->with_merged_prereqs(
         CPAN::Meta::Prereqs->new({
@@ -34,6 +42,7 @@ sub main {
     );
 
     Module::CPANfile->from_prereqs($new_prereqs)->save($cpanfile);
+    debug "updated cpanfile.";
 
     {
         my $guard = pushd $Bin;
@@ -41,9 +50,15 @@ sub main {
         my $merged = capture_merged {
             $ok = !system 'carton', 'install';
         };
+        debug "carton install output:";
+        debug $_ for split /\n/, $merged;
         email($merged, $ok);
+        debug "sending email done.";
         if ($ok) {
-            system 'sh', 'run.sh';
+            debug "do restart.";
+            system 'sh', 'restart.sh';
+        } else {
+            debug "carton install exits abnormally, thus skip restarting.";
         }
     }
     return;
@@ -64,9 +79,12 @@ sub email {
     my $to   = `git config user.email`     or die;
     my $from = sprintf '%s@%s', getpwuid($>), hostname;
     s/\r?\n//g for $to;
+    debug "email to: $to";
+    debug "email from: $from";
 
     my $now     = strftime("%Y-%m-%d %H:%M:%S %Z", localtime);
     my $subject = ($ok ? 'SUCCESS' : 'FAILED') . ": carton install ($now)";
+    debug "email subject: $subject";
 
     my $email = Email::MIME->create(
         header => [
