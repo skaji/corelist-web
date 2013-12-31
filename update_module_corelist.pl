@@ -7,7 +7,7 @@ use Capture::Tiny qw(capture_merged);
 use Email::MIME;
 use Email::Sender::Simple ();
 use File::Spec;
-use File::pusd qw(pushd);
+use File::pushd qw(pushd);
 use FindBin qw($Bin);
 use MetaCPAN::API;
 use Module::CPANfile;
