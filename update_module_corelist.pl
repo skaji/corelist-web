@@ -2,16 +2,17 @@
 use strict;
 use warnings;
 use utf8;
+use CPAN::Meta::Prereqs;
 use Capture::Tiny qw(capture_merged);
-use Email::Sender::Simple qw(sendmail);
-use Email::Simple::Creator;
-use Email::Simple;
+use Email::MIME;
+use Email::Sender::Simple ();
 use File::Spec;
-use File::chdir;
+use File::pusd qw(pushd);
 use FindBin qw($Bin);
 use MetaCPAN::API;
-use Perl6::Slurp qw(slurp);
-use POSIX ();
+use Module::CPANfile;
+use POSIX qw(strftime);
+use Sys::Hostname qw(hostname);
 
 main() unless caller();
 
@@ -19,18 +20,23 @@ sub main {
     my $module   = 'Module::CoreList';
     my $cpanfile = File::Spec->catfile($Bin, 'cpanfile');
 
-    my $current_version = current_version_of(
-        module   => $module,
-        cpanfile => $cpanfile,
-    );
-    my $latest_version  = latest_version_of($module);
+    my $original_prereqs = Module::CPANfile->load($cpanfile)->prereqs;
+    my $current_version  = $original_prereqs->as_string_hash->{runtime}{requires}{$module}
+        // die "ERROR missing verison of $module";
+    my $latest_version   = latest_version_of($module);
 
     return if $current_version >= $latest_version;
 
-    update_cpanfile(cpanfile => $cpanfile, version => $latest_version);
+    my $new_prereqs = $original_prereqs->with_merged_prereqs(
+        CPAN::Meta::Prereqs->new({
+            runtime => { requires => {$module => $latest_version} }
+        })
+    );
+
+    Module::CPANfile->from_prereqs($new_prereqs)->save($cpanfile);
 
     {
-        local $CWD = $Bin;
+        my $guard = pushd $Bin;
         my $ok;
         my $merged = capture_merged {
             $ok = !system 'carton', 'install';
@@ -51,29 +57,18 @@ sub latest_version_of {
     return $cpan->release(distribution => $mod)->{version};
 }
 
-sub current_version_of {
-    my %arg = ref $_[0] ? %{$_[0]} : @_;
-    my $cpanfile = delete $arg{cpanfile} or die;
-    my $module   = delete $arg{module}   or die;
-    for (slurp $cpanfile) {
-        if (/$module.*?([\d.]{2,})/) {
-            return $1;
-        }
-    }
-    die;
-}
 
 sub email {
     my ($body, $ok) = @_;
 
     my $to   = `git config user.email`     or die;
-    my $from = `whoami` . '@' . `hostname` or die;
-    s/\r?\n//g for $to, $from;
+    my $from = sprintf '%s@%s', getpwuid($>), hostname;
+    s/\r?\n//g for $to;
 
-    my $now     = POSIX::strftime("%Y-%m-%d %H:%M:%S %Z", localtime);
+    my $now     = strftime("%Y-%m-%d %H:%M:%S %Z", localtime);
     my $subject = ($ok ? 'SUCCESS' : 'FAILED') . ": carton install ($now)";
 
-    my $email = Email::Simple->create(
+    my $email = Email::MIME->create(
         header => [
             To      => $to,
             From    => $from,
@@ -81,22 +76,9 @@ sub email {
         ],
         body => $body,
     );
-    sendmail($email);
+    Email::Sender::Simple->send($email);
 }
 
-
-sub update_cpanfile {
-    my %arg = ref $_[0] ? %{$_[0]} : @_;
-    my $cpanfile = delete $arg{cpanfile} or die;
-    my $version  = delete $arg{version}  or die;
-    my @content  = slurp $cpanfile;
-    open my $out, '>', $cpanfile or die $!;
-    for (@content) {
-        s/(Module::CoreList.*?)([\d.]{2,})/$1$version/;
-        print {$out} $_;
-    }
-    return;
-}
 
 __END__
 
