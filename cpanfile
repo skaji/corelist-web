@@ -3,7 +3,7 @@ requires 'CPAN::Meta::Prereqs';
 requires 'Capture::Tiny';
 requires 'Email::MIME';
 requires 'Email::Sender::Simple';
-requires 'File::pusd';
+requires 'File::pushd';
 requires 'List::MoreUtils';
 requires 'MetaCPAN::API';
 requires 'Module::CPANfile';
