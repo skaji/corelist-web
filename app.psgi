@@ -5,6 +5,7 @@ use File::Basename;
 use Amon2::Lite;
 use Module::CoreList;
 use Plack::Builder;
+use FindBin;
 
 
 our $VERSION = '0.02';
@@ -49,7 +50,7 @@ get '/v/{version}' => sub {
 my $amon2 = __PACKAGE__->to_app();
 
 builder {
-    enable 'Static', path => qr{^/static/}, root => '.';
+    enable 'Static', path => qr{^/static/}, root => $FindBin::Bin;
     $amon2;
 };
 
